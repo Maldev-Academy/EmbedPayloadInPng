@@ -25,6 +25,10 @@ This repository consists of two implementations:
 
 <div style="text-align: center;"><img width="1200px" alt="image" src="https://github.com/user-attachments/assets/a92e998c-c45c-451f-bb5e-5368e5fc3357"></div>
 
+The payload-embedded PNG file `Output.png` file is the same .PNG file as the [original one](https://github.com/Maldev-Academy/EmbedPayloadInPng/blob/main/FeatureToastBulldogImg.png).
+
+https://github.com/user-attachments/assets/bec6f597-9955-4552-80f7-f484bd5754c3
+
 2. Copy the `MARKED_IDAT_HASH` macro definition outputted by `EmbedPayloadInPng.py` and replace it with the existing one in the `FetchPayloadFromPng` project [here](https://github.com/Maldev-Academy/EmbedPayloadInPng/blob/main/FetchPayloadFromPng/main.c#L23C1-L24C1).
 
 
