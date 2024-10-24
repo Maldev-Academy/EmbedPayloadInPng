@@ -8,9 +8,9 @@
 
 #define RC4_KEY_SIZE		16
 #define CHUNK_TYPE_SIZE		4
-#define BYTES_TO_SKIP		33			// PNG signature (8) + IHDR header (21) + IHDR CRC (4)
+#define BYTES_TO_SKIP		33		// PNG signature (8) + IHDR header (21) + IHDR CRC (4)
 #define PNG_SIGNATURE		0x474E5089	// 'GNP'0x89 
-#define IEND_HASH			0xAE426082	// IEND section hash 
+#define IEND_HASH		0xAE426082	// IEND section hash 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,11 +37,11 @@ typedef struct
 
 VOID Rc4EncryptDecrypt(IN PBYTE pInputBuffer, IN SIZE_T sInputBuffSize, IN PBYTE pRc4Key, IN SIZE_T sRc4KeySize, OUT PBYTE ppOutputBuffer) {
 
-	unsigned int		i			= 0x00;
-	unsigned int		j			= 0x00;
-	unsigned char*		s			= 0x00;
+	unsigned int		i		= 0x00;
+	unsigned int		j		= 0x00;
+	unsigned char*		s		= 0x00;
 	unsigned char		temp		= 0x00;
-	Rc4Context			context		= { 0 };
+	Rc4Context		context		= { 0 };
 
 	context.i = 0;
 	context.j = 0;
@@ -91,16 +91,16 @@ VOID Rc4EncryptDecrypt(IN PBYTE pInputBuffer, IN SIZE_T sInputBuffSize, IN PBYTE
 
 BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OUT PBYTE* ppDecryptedBuff, OUT PSIZE_T psDecryptedBuffLength) {
 	
-	SIZE_T			Offset									= BYTES_TO_SKIP,
-					sDecPayloadSize							= 0x00;
-	DWORD			uSectionLength							= 0x00;
+	SIZE_T			Offset						= BYTES_TO_SKIP,
+				sDecPayloadSize					= 0x00;
+	DWORD			uSectionLength					= 0x00;
 	CHAR			pSectionType[CHUNK_TYPE_SIZE + 1]		= { 0 };
-	PBYTE			pRc4Key[RC4_KEY_SIZE]					= { 0 };
-	PBYTE			pSectionBuffer							= NULL,
-					pTmpPntr								= NULL,
-					pDecPayload								= NULL;
-	UINT32			uCRC32Hash								= 0x00;
-	BOOL			bFoundHash								= FALSE;
+	PBYTE			pRc4Key[RC4_KEY_SIZE]				= { 0 };
+	PBYTE			pSectionBuffer					= NULL,
+				pTmpPntr					= NULL,
+				pDecPayload					= NULL;
+	UINT32			uCRC32Hash					= 0x00;
+	BOOL			bFoundHash					= FALSE;
 
 	if (*(ULONG*)pPngFileBuffer != PNG_SIGNATURE) {
 		printf("[!] Input File Is Not A PNG File \n");
@@ -183,7 +183,7 @@ BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OU
 	if (!bFoundHash)
 		printf("[!] Could Not Find IDAT Section With Hash: 0x%0.8X \n", MARKED_IDAT_HASH);
 
-	*ppDecryptedBuff		= pDecPayload;
+	*ppDecryptedBuff	= pDecPayload;
 	*psDecryptedBuffLength	= sDecPayloadSize;
 	
 	return bFoundHash;
@@ -202,8 +202,8 @@ BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OU
 
 BOOL WriteFileToDiskA(IN LPCSTR cFileName, IN PBYTE pFileBuffer, OUT DWORD dwFileSize) {
 
-	HANDLE		hFile = INVALID_HANDLE_VALUE;
-	DWORD		dwNumberOfBytesWritten = 0x00;
+	HANDLE		hFile 				= INVALID_HANDLE_VALUE;
+	DWORD		dwNumberOfBytesWritten	 	= 0x00;
 
 	if (!cFileName || !pFileBuffer || !dwFileSize)
 		goto _END_OF_FUNC;
@@ -233,9 +233,9 @@ _END_OF_FUNC:
 
 BOOL ReadFileFromDiskA(IN LPCSTR cFileName, OUT PBYTE* ppFileBuffer, OUT PDWORD pdwFileSize) {
 
-	HANDLE		hFile					= INVALID_HANDLE_VALUE;
-	DWORD		dwFileSize				= NULL,
-				dwNumberOfBytesRead		= NULL;
+	HANDLE		hFile				= INVALID_HANDLE_VALUE;
+	DWORD		dwFileSize			= NULL,
+			dwNumberOfBytesRead		= NULL;
 	PBYTE		pBaseAddress			= NULL;
 
 	if (!cFileName || !pdwFileSize || !ppFileBuffer)
@@ -277,11 +277,11 @@ _END_OF_FUNC:
 
 int main() {
 
-	PBYTE	pPngFileBuffer			= NULL,
-			pExeFileBuffer			= NULL;
+	PBYTE	pPngFileBuffer		= NULL,
+		pExeFileBuffer		= NULL;
 
-	SIZE_T	sPngFileSize			= 0x00,
-			sExeFileSize			= 0x00;
+	SIZE_T	sPngFileSize		= 0x00,
+		sExeFileSize		= 0x00;
 
 	if (!ReadFileFromDiskA("C:\\Users\\nul0x\\source\\repos\\FetchPayloadFromPng\\Output.png", &pPngFileBuffer, &sPngFileSize))
 		return -1;
