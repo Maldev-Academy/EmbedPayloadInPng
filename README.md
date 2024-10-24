@@ -31,6 +31,7 @@ https://github.com/user-attachments/assets/bec6f597-9955-4552-80f7-f484bd5754c3
 
 2. Copy the `MARKED_IDAT_HASH` macro definition outputted by `EmbedPayloadInPng.py` and replace it with the existing one in the `FetchPayloadFromPng` project [here](https://github.com/Maldev-Academy/EmbedPayloadInPng/blob/main/FetchPayloadFromPng/main.c#L23C1-L24C1).
 
+</br>
 
 
 ## Embedded PNG File Structure
